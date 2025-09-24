@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Summary</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #222;
+    }
+    
+    .title {
+      justify-content: centre;
+    }
+
+    .header {
+      border-bottom: 1px solid #ddd;
+      background: #fff;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+    }
+    .header-top .back {
+      font-size: 30px;
+      cursor: pointer;
+    }
+    .header-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+
+    .steps {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #777;
+    }
+    .step {
+      text-align: center;
+    }
+    .circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #bbb;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+      font-size: 13px;
+      color: #777;
+    }
+    .done .circle {
+      background: #FFB343;
+      border-color: #FFB343;
+      color: #fff;
+    }
+    .active .circle {
+      background: #FFB343;
+      border-color: #FFB343;
+      color: #fff;
+    }
+    .step span {
+      display: block;
+    }
+    .active span, .done span {
+      font-weight: bold;
+      color: #000;
+    }
+
+
+    section {
+      background: #fff;
+    }
+    .delivery, .product, .price-details, .safety {
+      padding: 16px;
+      border-bottom: 8px solid #f1f1f1;
+    }
+    .delivery p { margin: 6px 0; font-size: 14px; }
+
+
+    .product {
+      display: flex;
+      gap: 15px;
+    }
+    .product img {
+      width: 90px;
+      height: 90px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    .details p { margin: 4px 0; font-size: 14px; }
+    .stars { color: orange; }
+    .old { text-decoration: line-through; color: #999; margin-left: 6px; }
+    .discount { color: green; margin-right: 6px; }
+    .price { font-weight: bold; font-size: 15px; }
+
+
+    .price-details p {
+      margin: 8px 0;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .price-details hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 10px 0;
+    }
+    .green { color: green; font-weight: 600; }
+
+
+    .safety {
+      font-size: 13px;
+      color: #555;
+    }
+
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-top: 1px solid #ddd;
+      background: #fff;
+    }
+    .footer .left {
+      display: flex;
+      flex-direction: column;
+    }
+    .footer .old {
+      font-size: 13px;
+      color: #999;
+      text-decoration: line-through;
+    }
+    .footer .price {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .continue {
+      background: #ffc107;
+      border: none;
+      padding: 10px 22px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    footer.icons{display:flex;gap:12px;justify-content:space-around;padding:12px 0;border-top:1px solid var(--border)}  
+  footer.icons div{text-align:center;font-size:12px;color:var(--muted)}  
+  footer.icons img{width:28px;height:28px;margin-bottom:6px}  
+      .payment-option.active{border:2px solid var(--accent);background:#fff8e6}
+    .continue:hover { background: #e0a800; }
+  </style>
+</head>
+<body>
+
+
+  <div class="header">
+    <div class="header-top">
+      <span class="back">&#8592;</span>
+      <h3 class="header-title">Order Summary</h3>
+    </div>
+    <div class="steps">
+      <div class="step done"><div class="circle">1</div><span>Address</span></div>
+      <div class="step active"><div class="circle">2</div><span>Order Summary</span></div>
+      <div class="step"><div class="circle">3</div><span>Payment</span></div>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+
+    function loadAddress() {
+      const savedAddress = localStorage.getItem("deliveryAddress");
+      if (savedAddress) {
+        const addr = JSON.parse(savedAddress);
+        document.getElementById("deliveryDetails").innerHTML = `
+          <p><b>Delivered to:</b> ${addr.fullName}</p>
+          <p><b>Contact Number:</b> ${addr.mobile}</p>
+          <p><b>Address:</b> ${addr.fullAddress}, ${addr.city}, ${addr.fullstate} - ${addr.pincode}</p>
+        `;
+      } else {
+        document.getElementById("deliveryDetails").innerHTML = "<p>No address found. Please go back and add address.</p>";
+      }
+    }
+
+    window.onload = loadAddress;
+  </script>
+  
+
+
+  <section class="product">
+<a href="https://ibb.co/tM5NpsBZ"><img src="https://i.ibb.co/fY7KdpM8/Screenshot-2025-09-18-10-34-25-809-com-whatsapp-edit-2.jpg" alt="Screenshot-2025-09-18-10-34-25-809-com-whatsapp-edit-2" border="0"></a>
+    <div class="details">
+      <p><strong>Fortune, Soyabean Refined Oil 5L Jar + Fortune Everyday Basmati Rice, 5KG Bag Combo.</strong></p>
+      <p class="stars">★★★★☆</p>
+      <p>Qty: 1</p>
+      <p>
+        <span class="discount">80%</span>
+        <span class="old">₹2,499</span>
+        <span class="price">₹499.00</span>
+      </p>
+    </div>
+  </section>
+
+
+  <section class="price-details">
+    <p><span>Price (1 item)</span><span>₹2499.00</span></p>
+    <p><span>Discount</span><span class="green">₹2000.00</span></p>
+    <p><span>Delivery Charges</span><span class="green">FREE Delivery</span></p>
+    <hr>
+    <p><strong>Total Amount</strong><strong>₹499.00</strong></p>
+    <p class="green">You will save ₹2000.00 on this order</p>
+  </section>
+
+
+  <section class="safety">
+   7-Days Easy Returns | 100% Authentic Product | Safe & Secure
+  </section>
+ <footer class="icons card" style="margin-top:10px">
+      <div><img src="https://i.ibb.co/QvQHJMhg/original-3.png" alt=""><div>Authentic<br>Products</div></div>
+      <div><img src="https://i.ibb.co/LHVjMV9/shield.png" alt=""><div>Secure<br>Payments</div></div>
+      <div><img src="https://i.ibb.co/jZHv0bTW/return.png" alt=""><div>Easy<br>Returns</div></div>
+    </footer>
+
+<section>
+  <div class="footer">
+    <div class="left">
+      <span class="old">₹2499.00</span>
+      <span class="price">₹499.00</span>
+    </div>
+    <button class="continue">Continue</button>
+  </div>
+</section> 
+
+</body>
+</html> 
